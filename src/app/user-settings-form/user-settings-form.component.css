@@ -1,0 +1,8 @@
+/*:not will exclude the form from being having a border*/
+/* .ng-invalid:not(form).ng-touched {
+    border: 1px solid red;
+} */
+
+.field-error {
+    border: 1px solid red;
+}

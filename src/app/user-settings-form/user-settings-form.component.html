@@ -2,11 +2,49 @@
 <div class="container">
     <h1>{{pageTitle}}</h1>
     <h2>User Settings</h2>
-    <form #form = "ngForm">
+    <form #form = "ngForm"(ngSubmit) = "onSubmit(form)"> <!--ngNativeValidate is needed for HTML,CSS,Properties Validation debug -->
         <div class="form-group">
             <label for="Name">Name</label>
-            <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)] = "userSettings.name">
+            <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)] = "userSettings.name" 
+            required #nameField = "ngModel"
+            (blur) = "onBlur(nameField)" 
+            [class.field-error] = "form.submitted && nameField.invalid">
+
+            <div class="alert alert-danger" [hidden] = "!form.submitted || nameField.valid">
+                Enter a name
+            </div>
+
+            <!-- Requires ngNativeValidate for Debug -->
+            <!-- CSS Classes & Properties Validations -->
+            <!-- Be sure to include code within CSS files -->
+            <!-- <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)] = "userSettings.name" required #nameField = "ngModel"> -->
+            <!-- <div class="alert alert-danger" [hidden] = "nameField.valid || nameField.untouched">
+                Enter a name
+            </div> -->
+            
+            <!-- NgModel Properties Validation -->
+            <!-- <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)] = "userSettings.name" required #propertyTest = "ngModel"> -->
+
+            <!--CSS Classes Validation-->
+            <!-- <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)] = "userSettings.name" required minlength="3" #classTest>  -->
+
+            <!--HTML5 Validation-->
+            <!-- <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)] = "userSettings.name" required pattern="B.*" minlength = "3" maxlength = "5"> -->
+            <!-- <input id="name" name="name" class="form-control" placeholder="Name" [(ngModel)] = "userSettings.name" type ="number" min="3" max="300">  -->
         </div>
+             <!--NgModel Properties Validation Debug: boolean-->
+
+                <!-- <h3>Dirty: {{propertyTest.dirty}}</h3>
+                <h3>Pristine: {{propertyTest.pristine}}</h3>
+                <h3>Touched: {{propertyTest.touched}}</h3>
+                <h3>Untouched: {{propertyTest.untouched}}</h3>
+                <h3>Valid: {{propertyTest.valid}}</h3>
+                <h3>Invalid: {{propertyTest.invalid}}</h3> -->
+
+            <!--CSS Classes Validation Debug-->
+
+            <!-- <h3>{{classTest.className}}</h3> -->
+
         <div class="form-check form-group">
             <input class="form-check-input" type="checkbox" id="emailOffers" name="emailOffers" [(ngModel)]="userSettings.emailOffers">
             <label class="form-check-label" for="emailOffers">
