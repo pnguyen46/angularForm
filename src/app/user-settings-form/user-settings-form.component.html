@@ -82,9 +82,14 @@
                 Subscription Type
             </label>
             <select class="form-control" id="subscriptionType" name="subscriptionType" [(ngModel)] ="userSettings.subscriptionType">
-                <option>Monthly</option>
-                <option>Annual</option>
-                <option>Lifetime</option>
+                <option *ngFor = "let type of subscriptionTypes | async"> <!--async will wait for observable to complete and then built up the options-->
+                    {{type}}
+                </option>
+                
+                <!-- hard-coded options -->
+                <!-- <option>Monthly</option> -->
+                <!-- <option>Annual</option> -->
+                <!-- <option>Lifetime</option> -->
             </select>
         </div>
 
@@ -107,6 +112,10 @@
             </label>
             <input type="date" id="testing" class="form-control">
         </div> -->
+        
+        <div class="alert alert-danger" [hidden] = "!postError">
+            {{postErrorMessage}}
+        </div>
         <button class="btn btn-primary">Send</button>
     </form>
 </div>
